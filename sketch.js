@@ -4,7 +4,7 @@ const Bodies = Matter.Bodies;
 
 var engine,world;
 var drops=[]; 
-var maxDrops=[];
+var maxDrops=100;
 var umbrella;
 var rand;
 var Thunder,thunder1,thunder2,thunder3,thunder4;
@@ -24,14 +24,17 @@ function setup(){
 
   umbrella = new Umbrella(200,500)
 
-  for(var i=0 ;i<maxDrops ;i++){
-     drops.push(new createDrops(random(0,500),random(0,500)))
+  if(frameCount %150 === 0){
+    for(var i=0 ;i<maxDrops ;i++){
+        drops.push(new createDrops(random(0,500),random(0,500)))
+     }
   }
+  
 }
 
 function draw(){
     Engine.update(engine)
-    background("black")
+    background(0)
 
     rand = Math.round(random(1,4));
     if(frameCount%80 === 0){
@@ -57,10 +60,10 @@ function draw(){
     umbrella.display()
 
     for(var i=0 ; i< maxDrops; i++){
-        drops[i].display();
-        drops[i].update();
+        drops[i].showDrop();
+        drops[i].updateY();
     }
 
-    drawSptites();
+    drawSprites();
 }   
 
